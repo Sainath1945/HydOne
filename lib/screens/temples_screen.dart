@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import '../themes/app_theme.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:android_intent_plus/android_intent.dart';
+
 
 class DarshanTime {
   final String name;
@@ -69,8 +72,8 @@ class TemplesScreen extends StatelessWidget {
       bestTimeToVisit: 'Oct - Mar',
       timeToVisit: '1 - 2 Hours',
       dressCode: 'Traditional',
-      latitude: '17.3850° N',
-      longitude: '78.4867° E',
+      latitude: '17.2669306273',
+      longitude: '78.6755803570',
     ),
     TempleItem(
       name: 'Birla Mandir',
@@ -96,6 +99,29 @@ class TemplesScreen extends StatelessWidget {
       longitude: '78.4750° E',
     ),
     TempleItem(
+      name: 'Jagannath Temple',
+      location: 'Secunderabad',
+      rating: '4.6',
+      reviews: '1.8k Reviews',
+      timing: 'Open 5:30 AM - 7:30 PM',
+      description:
+          'A vibrant temple destination loved for its devotional energy and heritage-inspired design. Known for its intricate carvings and spiritual significance.',
+      imageUrl:
+          'https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=900&q=80',
+      accentColor: Color(0xFF008080),
+      darshanTimes: [
+        DarshanTime(name: 'Morning Darshan', time: '5:30 AM - 12:00 PM', icon: Icons.wb_sunny),
+        DarshanTime(name: 'Evening Darshan', time: '4:00 PM - 7:30 PM', icon: Icons.nightlight_round),
+        DarshanTime(name: 'Nirmalyam', time: '12:30 PM - 1:30 PM', icon: Icons.dark_mode),
+      ],
+      entryFee: 'Free',
+      bestTimeToVisit: 'Oct - Mar',
+      timeToVisit: '1.5 - 2 Hours',
+      dressCode: 'Traditional',
+      latitude: '17.3650° N',
+      longitude: '78.5050° E',
+    ),
+     TempleItem(
       name: 'Jagannath Temple',
       location: 'Secunderabad',
       rating: '4.6',
@@ -146,97 +172,8 @@ class TemplesScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Container(
-                decoration: BoxDecoration(
-                  color: AppTheme.white,
-                  borderRadius: BorderRadius.circular(24),
-                  boxShadow: [
-                    BoxShadow(
-                      color: AppTheme.primaryTeal.withOpacity(0.08),
-                      blurRadius: 20,
-                      offset: const Offset(0, 10),
-                    ),
-                  ],
-                ),
-                padding: const EdgeInsets.all(18),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Container(
-                          padding: const EdgeInsets.all(10),
-                          decoration: BoxDecoration(
-                            color: AppTheme.primaryTeal.withOpacity(0.12),
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                          child: const Icon(
-                            Icons.account_balance,
-                            color: AppTheme.primaryTeal,
-                            size: 24,
-                          ),
-                        ),
-                        const SizedBox(width: 12),
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                'Nearest Temples',
-                                style: Theme.of(context).textTheme.titleLarge,
-                              ),
-                              const SizedBox(height: 4),
-                              Text(
-                                'Spiritual spots with best reviews nearby.',
-                                style: Theme.of(context).textTheme.bodyMedium,
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 16),
-                    Hero(
-                      tag: 'temple-featured',
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(20),
-                        child: Image.network(
-                          temples.first.imageUrl,
-                          height: 220,
-                          width: double.infinity,
-                          fit: BoxFit.cover,
-                          errorBuilder: (context, error, stackTrace) {
-                            return Container(
-                              height: 220,
-                              color: AppTheme.lightGray,
-                              child: const Center(
-                                child: Icon(
-                                  Icons.account_balance,
-                                  color: AppTheme.primaryTeal,
-                                  size: 60,
-                                ),
-                              ),
-                            );
-                          },
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 16),
-                    Wrap(
-                      spacing: 8,
-                      runSpacing: 8,
-                      children: const [
-                        _InfoChip(label: 'Sacred', color: AppTheme.primaryTeal),
-                        _InfoChip(label: 'Heritage', color: AppTheme.accentBlue),
-                        _InfoChip(label: 'Peaceful', color: Color(0xFF8E24AA)),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(height: 20),
               Text(
-                'Featured Temples',
+                'Temples to Explore',
                 style: Theme.of(context).textTheme.headlineSmall,
               ),
               const SizedBox(height: 12),
@@ -271,15 +208,42 @@ class TemplesScreen extends StatelessWidget {
         padding: const EdgeInsets.all(14),
         child: Row(
           children: [
-            Container(
-              width: 50,
-              height: 50,
-              decoration: BoxDecoration(
-                color: temple.accentColor.withOpacity(0.15),
-                borderRadius: BorderRadius.circular(14),
+             Container(
+  width: 50,
+  height: 50,
+  decoration: BoxDecoration(
+    color: temple.accentColor.withOpacity(0.15),
+    borderRadius: BorderRadius.circular(14),
+  ),
+  clipBehavior: Clip.antiAlias,
+  child: temple.imageUrl.trim().isNotEmpty
+      ? Image.network(
+          temple.imageUrl,
+          fit: BoxFit.cover,
+          errorBuilder: (context, error, stackTrace) {
+            return Icon(
+              Icons.account_balance,
+              color: temple.accentColor,
+              size: 24,
+            );
+          },
+          loadingBuilder: (context, child, loadingProgress) {
+            if (loadingProgress == null) return child;
+            return const Center(
+              child: SizedBox(
+                width: 20,
+                height: 20,
+                child: CircularProgressIndicator(strokeWidth: 2),
               ),
-              child: Icon(Icons.account_balance, color: temple.accentColor, size: 24),
-            ),
+            );
+          },
+        )
+      : Icon(
+          Icons.account_balance,
+          color: temple.accentColor,
+          size: 24,
+        ),
+),
             const SizedBox(width: 14),
             Expanded(
               child: Column(
@@ -834,7 +798,12 @@ class _TempleDetailScreenState extends State<TempleDetailScreen> {
                   children: [
                     Expanded(
                       child: ElevatedButton.icon(
-                        onPressed: () {},
+                        onPressed: () {
+                            _openMap(
+        widget.temple.latitude,
+        widget.temple.longitude,
+      );
+                        },
                         icon: const Icon(Icons.near_me, size: 18),
                         label: const Text('Navigate'),
                         style: ElevatedButton.styleFrom(
@@ -918,6 +887,19 @@ class _TempleDetailScreenState extends State<TempleDetailScreen> {
       ),
     );
   }
+   
+Future<void> _openMap(String lat, String lng) async {
+  final double latitude = double.parse(lat);
+  final double longitude = double.parse(lng);
+
+  final intent = AndroidIntent(
+    action: 'action_view',
+    data: 'geo:$latitude,$longitude?q=$latitude,$longitude',
+    package: 'com.google.android.apps.maps',
+  );
+
+  await intent.launch();
+}
 }
 
 class _InfoChip extends StatelessWidget {

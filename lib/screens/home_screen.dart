@@ -128,23 +128,23 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
 
                   // Search Bar
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
-                    child: TextField(
-                      decoration: InputDecoration(
-                        hintText: 'Where are you going?',
-                        prefixIcon: const Icon(Icons.search),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(12),
-                          borderSide: BorderSide.none,
-                        ),
-                        filled: true,
-                        fillColor: AppTheme.lightGray,
-                      ),
-                    ),
-                  ),
+                  // Padding(
+                  //   padding: const EdgeInsets.symmetric(horizontal: 20),
+                  //   child: TextField(
+                  //     decoration: InputDecoration(
+                  //       hintText: 'Where are you going?',
+                  //       prefixIcon: const Icon(Icons.search),
+                  //       border: OutlineInputBorder(
+                  //         borderRadius: BorderRadius.circular(12),
+                  //         borderSide: BorderSide.none,
+                  //       ),
+                  //       filled: true,
+                  //       fillColor: AppTheme.lightGray,
+                  //     ),
+                  //   ),
+                  // ),
 
-                  const SizedBox(height: 24),
+                  const SizedBox(height: 16),
 
                   // Quick Navigation Buttons
                   Padding(
@@ -327,31 +327,31 @@ class _HomeScreenState extends State<HomeScreen> {
                             );
                           },
                         ),
-                        _buildQuickActionItem(
-                          Icons.directions_car,
-                          'All Rides',
-                          const Color(0xFFFFC107),
-                          iconWidget: Stack(
-                            alignment: Alignment.center,
-                            children: [
-                              const Icon(
-                                Icons.directions_car,
-                                size: 18,
-                                color: Color(0xFFFFC107),
-                              ),
-                              Positioned(
-                                left: 8,
-                                bottom: 0,
-                                child: Icon(
-                                  Icons.pedal_bike,
-                                  size: 14,
-                                  color: const Color(0xFFFFC107),
-                                ),
-                              ),
-                            ],
-                          ),
-                          onTap: () {},
-                        ),
+                        // _buildQuickActionItem(
+                        //   Icons.directions_car,
+                        //   'All Rides',
+                        //   const Color(0xFFFFC107),
+                        //   iconWidget: Stack(
+                        //     alignment: Alignment.center,
+                        //     children: [
+                        //       const Icon(
+                        //         Icons.directions_car,
+                        //         size: 18,
+                        //         color: Color(0xFFFFC107),
+                        //       ),
+                        //       Positioned(
+                        //         left: 8,
+                        //         bottom: 0,
+                        //         child: Icon(
+                        //           Icons.pedal_bike,
+                        //           size: 14,
+                        //           color: const Color(0xFFFFC107),
+                        //         ),
+                        //       ),
+                        //     ],
+                        //   ),
+                        //   onTap: () {},
+                        // ),
                         _buildQuickActionItem(
                           Icons.temple_buddhist,
                           'Temples',
