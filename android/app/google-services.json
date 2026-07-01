@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "900549230387",
+    "firebase_url": "https://hydone-default-rtdb.firebaseio.com",
+    "project_id": "hydone",
+    "storage_bucket": "hydone.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:900549230387:android:7bb4059697856308f3c846",
+        "android_client_info": {
+          "package_name": "com.example.hydone"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCbVsIC3ZS-6kHex5_EtIIY9Ezqe0ANhIg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
